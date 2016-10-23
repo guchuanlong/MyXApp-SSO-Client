@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Heero&#x27;s Blog</title>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+
+<link href="styles/tomorrow.css" media="all" rel="stylesheet" type="text/css" />
+
+<!--<script src="script/jraiser2.js"></script>-->
+
+
+</head>
+
+<body>
+<!--[if lt IE 9]>
+<script>
+!function(body) {
+var html = body.parentNode;
+body.style.width = '100%';
+body.style.height = '100%';
+html.style.overflow = body.style.overflow= 'hidden';
+}(document.body);
+</script>
+<iframe src="browsertips.html" frameborder="0" scrolling="no" style="position: absolute; width: 100%; height: 100%; left: 0; top: 0; z-index: 99999;"></iframe>
+<![endif]-->
+
+<div class="container clearfix">
+	<div class="boundary container__boundary clearfix">
+		
+<div class="main">
+
+	<div id="article-list" class="article-list">
+	
+		<article class="article-list__item">
+			<header class="article-list__item__header clearfix">
+				<h1 class="article-list__item__header__title"><a href="article/detail/126/safety-problem-of-multer-middleware">multer中间件的安全问题</a></h1>
+				<div class="article-list__item__header__meta">
+					<a href="article/list/6/nodejs">Node.js开发</a>&nbsp;&nbsp;|&nbsp;&nbsp;1个月前
+				</div>
+			</header>
+			<div class="article__content article-list__item__summary">
+				<p>昨天备份本博客的时候发现，上传目录下多了几个奇怪的.asp和.php文件。这些文件并非我自己上传的，很可能是通过某个漏洞传到了服务器上。这会有什么危害呢？下面简单介绍一下。</p><p>假设某人把一个功能为删除站点下所有文件的evil.php通过漏洞传到了http://abc.com/upload/下，然后访问http://abc.com/upload/evil.php，那么：</p><ul><li>如果该站点不支持php脚本，是没什么危害的；</li><li>如果该站点支持php脚本，它的全部文件就会被删除。</li></ul><p>这里有两个关键点，一是<strong>主动访问</strong>该文件才会触发脚本执行，二是<strong>服务器支持</strong>该类型脚本才能执行。而本博客刚好不具备这两个条件（后面再详细说明），所以没有造成任何损失。即便如此，这漏洞还是要修复的，不然被无休止地上传文件迟早会占满硬盘空间。</p><p>本博客基于express框架开发，上传功能是通过<a target="_blank" href="https://www.npmjs.com/package/multer">multer中间件</a>实现的，且只有管理后台存在文件上传的功能。因为后台页面、接口都设有权限验证，是不可能被绕过的。最后发现问题出在multer的调用上，而这问题又要归咎于官方文档的错误引导了：</p><pre><code class="language-javascript">app.use(multer({
+	dest: './uploads/',
+	rename: function (fieldname, filename) {
+		return filename.replace(/\W+/g, '-').toLowerCase() + Date.now()
+	}
+}))</code></pre>
+			</div>
+			<footer class="article-list__item__footer clearfix">
+				<div class="article-list__item__footer_info"><em>94</em>次阅读，<em>0</em>条评论</div>
+				<div class="article-list__item__footer__share clearfix">
+					<a href="#" class="share-ico share-ico--weibo" data-sharetype="weibo">&#x349f;</a>
+					<a href="#" class="share-ico share-ico--wechat" data-sharetype="wechat">&#xe63c;</a>
+				</div>
+			</footer>
+		</article>
+	
+		<article class="article-list__item">
+			<header class="article-list__item__header clearfix">
+				<h1 class="article-list__item__header__title"><a href="article/detail/125/object-oriented-in-ecmascript-6">ECMAScript 6中的面向对象</a></h1>
+				<div class="article-list__item__header__meta">
+					<a href="article/list/4/frontend">前端开发</a>&nbsp;&nbsp;|&nbsp;&nbsp;1个月前
+				</div>
+			</header>
+			<div class="article__content article-list__item__summary">
+				<p>ECMAScript 6（下面简称ES6）增强了对面向对象的支持，引入了class关键字，并且为类的创建、继承提供了简洁清晰的语法。</p><h2>类声明与类表达式</h2><p>毋庸置疑，<strong>class关键字</strong>就是用来定义类的。</p><p>定义类的常用方式是类声明，语法如下：</p><pre><code class="language-javascript">class ClassName {
+	// 构造函数
+	constructor() {
+		// ...
+	}
+
+	// 方法
+	method() {
+		// ...
+	}
+}</code></pre>
+			</div>
+			<footer class="article-list__item__footer clearfix">
+				<div class="article-list__item__footer_info"><em>116</em>次阅读，<em>1</em>条评论</div>
+				<div class="article-list__item__footer__share clearfix">
+					<a href="#" class="share-ico share-ico--weibo" data-sharetype="weibo">&#x349f;</a>
+					<a href="#" class="share-ico share-ico--wechat" data-sharetype="wechat">&#xe63c;</a>
+				</div>
+			</footer>
+		</article>
+	
+		<article class="article-list__item">
+			<header class="article-list__item__header clearfix">
+				<h1 class="article-list__item__header__title"><a href="article/detail/124/understand-object-oriented-javascript-deeply-chapter-3">深入理解Javascript中的面向对象（三）</a></h1>
+				<div class="article-list__item__header__meta">
+					<a href="article/list/4/frontend">前端开发</a>&nbsp;&nbsp;|&nbsp;&nbsp;3个月前
+				</div>
+			</header>
+			<div class="article__content article-list__item__summary">
+				<p>在Javascript中，虽然借助原型链就可以实现继承，但这里面还是有很多细节问题的要处理的。分析并解决这些问题后，就可以把创建类的过程写成一个通用函数了。</p><h2>constructor属性</h2><p>Javascript中的对象都有一个constructor的属性指向其构造函数。例如：</p><pre><code class="language-javascript">function A() { }
+var a = new A();
+a.constructor; // A</code></pre><p>确切地说，<strong>constructor属性是位于构造函数的prototype上</strong>。下面的代码可以证实这一规则：</p><pre><code class="language-javascript">function A() { }
+
+var a = new A();
+console.log(a.constructor); // A
+
+delete A.prototype.constructor; // 删除原型上的constructor属性
+console.log(a.constructor); // Object</code></pre>
+			</div>
+			<footer class="article-list__item__footer clearfix">
+				<div class="article-list__item__footer_info"><em>611</em>次阅读，<em>1</em>条评论</div>
+				<div class="article-list__item__footer__share clearfix">
+					<a href="#" class="share-ico share-ico--weibo" data-sharetype="weibo">&#x349f;</a>
+					<a href="#" class="share-ico share-ico--wechat" data-sharetype="wechat">&#xe63c;</a>
+				</div>
+			</footer>
+		</article>
+	
+		<article class="article-list__item">
+			<header class="article-list__item__header clearfix">
+				<h1 class="article-list__item__header__title"><a href="article/detail/123/understand-object-oriented-javascript-deeply-chapter-2">深入理解Javascript中的面向对象（二）</a></h1>
+				<div class="article-list__item__header__meta">
+					<a href="article/list/4/frontend">前端开发</a>&nbsp;&nbsp;|&nbsp;&nbsp;3个月前
+				</div>
+			</header>
+			<div class="article__content article-list__item__summary">
+				<p>严格来说，Javascript并<em>不是</em>一门面向对象的语言，因为它没有原生提供完整的面向对象机制。但它的语言特性又允许我们去<em>模拟</em>大部分这些机制。</p><h2>new操作符</h2><p>Javascript中也用<strong>new操作符</strong>创建类的实例，例如：</p><pre><code class="language-javascript">var arr = new Array(10); // 创建长度为10的数组
+var date = new Date; // 不需要传参数给构造函数时，括号可以省略</code></pre><p>与C#不同的是，Javascript中<strong>new的是函数</strong>而不是class，这个函数即为类的构造函数。在构造函数中，可以声明属性和方法。例如：</p><pre><code class="language-javascript">function Square() {
+	this.length = 1;
+	this.perimeter = function() {
+		return this.length * 4;
+	};
+}
+
+var square = new Square();
+square.perimeter(); // 4
+square.length = 10;
+square.perimeter(); // 40</code></pre>
+			</div>
+			<footer class="article-list__item__footer clearfix">
+				<div class="article-list__item__footer_info"><em>659</em>次阅读，<em>2</em>条评论</div>
+				<div class="article-list__item__footer__share clearfix">
+					<a href="#" class="share-ico share-ico--weibo" data-sharetype="weibo">&#x349f;</a>
+					<a href="#" class="share-ico share-ico--wechat" data-sharetype="wechat">&#xe63c;</a>
+				</div>
+			</footer>
+		</article>
+	
+		<article class="article-list__item">
+			<header class="article-list__item__header clearfix">
+				<h1 class="article-list__item__header__title"><a href="article/detail/122/understand-object-oriented-javascript-deeply-chapter-1">深入理解Javascript中的面向对象（一）</a></h1>
+				<div class="article-list__item__header__meta">
+					<a href="article/list/4/frontend">前端开发</a>&nbsp;&nbsp;|&nbsp;&nbsp;3个月前
+				</div>
+			</header>
+			<div class="article__content article-list__item__summary">
+				<p>在学习Javascript的过程中，面向对象是必须要学会的课题。然而，网络上大部分文章只是简单地讲述如何通过代码实现面向对象，忽略了理论和原理方面的知识。本系列文章将从头开始逐步讲解面向对象编程思想及其在Javascript中的实现与应用。</p><h2>从一个简单的需求开始</h2><p>假设我们需要在程序中计算各种形状的周长，代码可能是这样的：</p><pre><code class="language-javascript">var rectangle = {
+	name: '长方形1',
+	type: 'rectangle',
+	length: 5,  // 长
+	width: 10   // 宽
+};
+var square = {
+	name: '正方形1',
+	type: 'square',
+	length: 5  // 边长
+};
+var circle = {
+	name: '圆形1',
+	type: 'circle',
+	radius: 5  // 半径
+};
+
+function computePerimeter(shape) {
+	var result;
+	switch (shape.type) {
+        case 'rectangle':
+        	// 矩形周长：(长+宽)*2
+        	result = (shape.length + shape.width) * 2;
+        	break;
+        case 'square':
+        	// 正方形周长：边长*4
+        	result = shape.length * 4;
+        	break;
+        case 'circle':
+        	// 圆形周长：2*PI*半径
+        	result = 2 * Math.PI * shape.radius;
+        	break;
+    }
+
+    return shape.name + '的周长是' + result;
+}</code></pre>
+			</div>
+			<footer class="article-list__item__footer clearfix">
+				<div class="article-list__item__footer_info"><em>1326</em>次阅读，<em>1</em>条评论</div>
+				<div class="article-list__item__footer__share clearfix">
+					<a href="#" class="share-ico share-ico--weibo" data-sharetype="weibo">&#x349f;</a>
+					<a href="#" class="share-ico share-ico--wechat" data-sharetype="wechat">&#xe63c;</a>
+				</div>
+			</footer>
+		</article>
+	
+		<article class="article-list__item">
+			<header class="article-list__item__header clearfix">
+				<h1 class="article-list__item__header__title"><a href="article/detail/121/work-experience-in-56com-chapter-2">工作经历（五）——56网下篇</a></h1>
+				<div class="article-list__item__header__meta">
+					<a href="article/list/1">工作生活</a>&nbsp;&nbsp;|&nbsp;&nbsp;3个月前
+				</div>
+			</header>
+			<div class="article__content article-list__item__summary">
+				<p>写好<a target="_blank" href="article/detail/120/work-experience-in-56com-chapter-1">《上篇》</a>并分享到微信朋友圈后，反响热烈。为了感谢大家的支持，我又很快地写好了下篇。下篇主要讲一下技术工作以外的事情。</p><h2>公司特点</h2><p>要说56网跟其他IT公司的区别，有以下这些：</p><ul><li><strong>很少加班</strong>。平时下班后一小时内，公司大部分位置都空了；周末基本上只有客服在。</li><li><strong>妹子比例高</strong>。产品、运营大部分为妹子，后来测试组也全是妹子，男女搭配，干活不累。</li><li><strong>员工回流</strong>。虽然人数不多，但确实有几例已离职员工隔了一段时间又重新入职的情况，这在我以前工作过的公司里几乎没有听过。</li></ul>
+			</div>
+			<footer class="article-list__item__footer clearfix">
+				<div class="article-list__item__footer_info"><em>379</em>次阅读，<em>4</em>条评论</div>
+				<div class="article-list__item__footer__share clearfix">
+					<a href="#" class="share-ico share-ico--weibo" data-sharetype="weibo">&#x349f;</a>
+					<a href="#" class="share-ico share-ico--wechat" data-sharetype="wechat">&#xe63c;</a>
+				</div>
+			</footer>
+		</article>
+	
+		<article class="article-list__item">
+			<header class="article-list__item__header clearfix">
+				<h1 class="article-list__item__header__title"><a href="article/detail/120/work-experience-in-56com-chapter-1">工作经历（五）——56网上篇</a></h1>
+				<div class="article-list__item__header__meta">
+					<a href="article/list/1">工作生活</a>&nbsp;&nbsp;|&nbsp;&nbsp;3个月前
+				</div>
+			</header>
+			<div class="article__content article-list__item__summary">
+				<p>在奔步公司萌生了辞职的念头后，我先后去了56网和酷狗面试，前者是通过内部推荐，后者则是猎头介绍。虽然酷狗给的待遇要更高一些，但无论是技术面还是HR面，56网要更加专业，所以我最终选择了56网。</p><h2>初来乍到</h2><p>第一天到公司报到，发现这里有不少原网易员工，其中一位设计师还曾经是网易以及3G门户的同事。当然，创始人更是<strong>网易创业帮</strong>的一员。</p><p>上了几天班后，基本上搞清楚了这边Web开发的概况。其中JS出现了<strong>职责分裂</strong>：前端主要负责UI方面的逻辑，后端PHP会编写一些数据加载、提交方面的逻辑。Web主管和前端主管有意把JS完全纳入前端工作范围，所以需要一个领头的人<strong>搭建架构</strong>、<strong>规范代码</strong>、<strong>指导开发</strong>，这也就是我的主要任务了。</p>
+			</div>
+			<footer class="article-list__item__footer clearfix">
+				<div class="article-list__item__footer_info"><em>419</em>次阅读，<em>3</em>条评论</div>
+				<div class="article-list__item__footer__share clearfix">
+					<a href="#" class="share-ico share-ico--weibo" data-sharetype="weibo">&#x349f;</a>
+					<a href="#" class="share-ico share-ico--wechat" data-sharetype="wechat">&#xe63c;</a>
+				</div>
+			</footer>
+		</article>
+	
+		<article class="article-list__item">
+			<header class="article-list__item__header clearfix">
+				<h1 class="article-list__item__header__title"><a href="article/detail/67/principle-of-javascript-animation">Javascript动画实现原理</a></h1>
+				<div class="article-list__item__header__meta">
+					<a href="article/list/4/frontend">前端开发</a>&nbsp;&nbsp;|&nbsp;&nbsp;4个月前
+				</div>
+			</header>
+			<div class="article__content article-list__item__summary">
+				<p>假设有这样一个动画功能需求：把一个div的宽度从100px变化到200px。写出来的代码可能是这样的：</p><pre><code class="language-html">&lt;div id="test1" style="width: 100px; height: 100px; background: blue; color: white;"&gt;&lt;/div&gt;</code></pre><pre><code class="language-javascript">function animate1(element, endValue, duration) {
+	var startTime = new Date(),
+		startValue = parseInt(element.style.width),
+		step = 1;
+	
+	var timerId = setInterval(function() {
+		var nextValue = parseInt(element.style.width) + step;
+		element.style.width = nextValue + 'px';
+		if (nextValue &gt;= endValue) {
+			clearInterval(timerId);
+			// 显示动画耗时
+			element.innerHTML = new Date - startTime;
+		}
+	}, duration / (endValue - startValue) * step);
+}
+
+animate1(document.getElementById('test1'), 200, 1000);</code></pre><p>原理是每隔一定时间增加1px，一直到200px为止。然而，动画结束后显示的耗时却不止1s（一般是1.5s左右）。究其原因，是因为<strong>setInterval并不能严格保证执行间隔</strong>。</p>
+			</div>
+			<footer class="article-list__item__footer clearfix">
+				<div class="article-list__item__footer_info"><em>7899</em>次阅读，<em>0</em>条评论</div>
+				<div class="article-list__item__footer__share clearfix">
+					<a href="#" class="share-ico share-ico--weibo" data-sharetype="weibo">&#x349f;</a>
+					<a href="#" class="share-ico share-ico--wechat" data-sharetype="wechat">&#xe63c;</a>
+				</div>
+			</footer>
+		</article>
+	
+		<article class="article-list__item">
+			<header class="article-list__item__header clearfix">
+				<h1 class="article-list__item__header__title"><a href="article/detail/119/micro-templating-optimization">Micro-Templating性能优化</a></h1>
+				<div class="article-list__item__header__meta">
+					<a href="article/list/4/frontend">前端开发</a>&nbsp;&nbsp;|&nbsp;&nbsp;4个月前
+				</div>
+			</header>
+			<div class="article__content article-list__item__summary">
+				<p>在<a target="_blank" href="article/detail/73">这篇文章</a>中，我简单介绍了前端模板引擎。John Resig写的tmpl函数麻雀虽小五脏俱全，足以满足日常开发需要。本文主要探讨一下tmpl的性能优化。</p><p>先复习一下tmpl的源代码：</p><pre><code class="language-javascript">var tmpl = (function() {
+	var cache = { };
+
+	return function(str, data) {
+		var fn = cache[str];
+		if (!fn) {
+			fn = new Function("obj",
+				"var p=[];" +
+				"with(obj){p.push('" +
+				str
+					.replace(/[\r\t\n]/g, " ")
+					.split("&lt;%").join("\t")
+					.replace(/((^|%&gt;)[^\t]*)'/g, "$1\r")
+					.replace(/\t=(.*?)%&gt;/g, "',$1,'")
+					.split("\t").join("');")
+					.split("%&gt;").join("p.push('")
+					.split("\r").join("\\'")
+				+ "');}return p.join('');"
+			);
+			cache[str] = fn;
+		}
+
+		return fn(data);
+	};
+})();</code></pre>
+			</div>
+			<footer class="article-list__item__footer clearfix">
+				<div class="article-list__item__footer_info"><em>145</em>次阅读，<em>1</em>条评论</div>
+				<div class="article-list__item__footer__share clearfix">
+					<a href="#" class="share-ico share-ico--weibo" data-sharetype="weibo">&#x349f;</a>
+					<a href="#" class="share-ico share-ico--wechat" data-sharetype="wechat">&#xe63c;</a>
+				</div>
+			</footer>
+		</article>
+	
+		<article class="article-list__item">
+			<header class="article-list__item__header clearfix">
+				<h1 class="article-list__item__header__title"><a href="article/detail/118/suffering-from-iisnode">iisnode折腾记</a></h1>
+				<div class="article-list__item__header__meta">
+					<a href="article/list/6/nodejs">Node.js开发</a>&nbsp;&nbsp;|&nbsp;&nbsp;4个月前
+				</div>
+			</header>
+			<div class="article__content article-list__item__summary">
+				<p>今年年初打算用Node.js基于<a target="_blank" href="http://expressjs.com/">Express框架</a>重写博客程序，从此告别ASP.NET。然而，我目前用的VPS是Windows Server系统、IIS服务器，如果让Express和IIS都监听80端口，明显会产生冲突。幸好，有一个叫做<a target="_blank" href="https://github.com/tjanczuk/iisnode">iisnode</a>的扩展可以把Node.js程序托管到IIS。而且，这样托管之后也意味着可以使用IIS里面的各种功能（进程管理、GZip压缩、日志、缓存、权限控制、域名绑定等）。</p><p>要使用iisnode，得安装：</p><ul><li><a target="_blank" href="http://nodejs.org/">Node.js</a></li><li><a target="_blank" href="http://www.iis.net/downloads/microsoft/url-rewrite">IIS的URL Rewrite模块</a></li><li><a target="_blank" href="https://github.com/tjanczuk/iisnode">iisnode</a></li></ul><p>装好之后，还是按照常规操作，在IIS管理器中创建站点，指向Express程序的目录，关键是还要增加一个web.config文件：</p><pre><code class="language-xml">&lt;configuration&gt;
+	&lt;system.webServer&gt;
+		&lt;handlers&gt;
+			&lt;add name="iisnode" path="bin/www" verb="*" modules="iisnode" resourceType="Unspecified" requireAccess="Script" /&gt;
+		&lt;/handlers&gt;
+
+		&lt;rewrite&gt;
+			&lt;rules&gt;
+				&lt;rule name="all"&gt;
+					&lt;match url="*" /&gt;
+					&lt;action type="Rewrite" url="bin/www" /&gt;
+				&lt;/rule&gt;
+			&lt;/rules&gt;
+		&lt;/rewrite&gt;
+	&lt;/system.webServer&gt;
+&lt;/configuration&gt;</code></pre>
+			</div>
+			<footer class="article-list__item__footer clearfix">
+				<div class="article-list__item__footer_info"><em>115</em>次阅读，<em>0</em>条评论</div>
+				<div class="article-list__item__footer__share clearfix">
+					<a href="#" class="share-ico share-ico--weibo" data-sharetype="weibo">&#x349f;</a>
+					<a href="#" class="share-ico share-ico--wechat" data-sharetype="wechat">&#xe63c;</a>
+				</div>
+			</footer>
+		</article>
+	
+
+		<nav id="article-list__paginator">
+			<ol class="paginator">
+
+	<li class="paginator__item paginator__item--prev paginator__item--prev--disabled">
+		<span class="paginator__item__text">
+			<span class="paginator__item__text__icon"></span>
+		</span>
+	</li>
+
+
+	
+	<li class="paginator__item paginator__item--number paginator__item--current">
+		<span class="paginator__item__text">1</span>
+	</li>
+	
+
+	
+		<li class="paginator__item paginator__item--number">
+			<a href="?page=2" data-page="2" class="paginator__item__text">2</a>
+		</li>
+	
+
+	
+		<li class="paginator__item paginator__item--number">
+			<a href="?page=3" data-page="3" class="paginator__item__text">3</a>
+		</li>
+	
+
+	
+	<li class="paginator__item paginator__item--ellipsis">
+		<span class="paginator__item__text">
+			<span class="paginator__item__text__icon"></span>
+		</span>
+	</li>
+	
+
+	
+		<li class="paginator__item paginator__item--number">
+			<a href="?page=8" data-page="8" class="paginator__item__text">8</a>
+		</li>
+	
+
+
+	<li class="paginator__item paginator__item--next">
+		<a href="?page=2" data-page="2" class="paginator__item__text">
+			<span class="paginator__item__text__icon"></span>
+		</a>
+	</li>
+
+</ol>
+		</nav>
+
+	</div>
+
+</div>
+<aside class="sidebar">
+
+	<section class="sidebar__section recommended-articles">
+		<h2 class="sidebar__section__title">推荐文章</h2>
+		<ol class="sidebar__article-list">
+	
+			<li><a href="article/detail/119/micro-templating-optimization" target="_blank">Micro-Templating性能优化</a></li>
+	
+			<li><a href="article/detail/107/essay-about-gundam-seed-remaster" target="_blank">写在《高达SEED重制版》即将结束之际</a></li>
+	
+			<li><a href="article/detail/95/draw-clock-in-canvas" target="_blank">使用canvas绘制时钟</a></li>
+	
+			<li><a href="article/detail/67/principle-of-javascript-animation" target="_blank">Javascript动画实现原理</a></li>
+	
+			<li><a href="article/detail/111/understand-javascript-modular-development" target="_blank">了解模块化开发</a></li>
+	
+			<li><a href="article/detail/58" target="_blank">输入法也做代码库</a></li>
+	
+		</ol>
+	</section>
+
+
+	<section class="sidebar__section friend-sites">
+		<h2 class="sidebar__section__title">友情链接</h2>
+		<dl class="sidebar__link-list">
+	
+			<dt><a href="http://jraiser.org/" target="_blank">JRaiser Project</a></dt>
+			<dd>JRaiser模块化JS类库</dd>
+	
+			<dt><a href="http://www.bokeyy.com/" target="_blank">博客歪歪</a></dt>
+			<dd>奋斗在一线的前端开发工程师的博客</dd>
+	
+			<dt><a href="http://www.zhoumingzhi.com/" target="_blank">记事本</a></dt>
+			<dd>这里全是流水账</dd>
+	
+			<dt><a href="http://jooben.blog.51cto.com/" target="_blank">leolee&#x27;s blog</a></dt>
+			<dd>leolee&#x27;s blog</dd>
+	
+			<dt><a href="http://www.suerb.com/" target="_blank">make it simple</a></dt>
+			<dd>make it simple</dd>
+	
+			<dt><a href="http://laker.me/blog/index.html" target="_blank">Laker&#x27;s Blog</a></dt>
+			<dd>进击的程序媛</dd>
+	
+			<dt><a href="http://terran.cc/" target="_blank">Terran&#x27;s Blog</a></dt>
+			<dd>产品设计、交互设计、Web前端开发、生活思考</dd>
+	
+			<dt><a href="http://liuxiaofan.com/" target="_blank">爱前端</a></dt>
+			<dd>专注Web前端开发，Web应用，JavaScirpt模式、框架，HTML5，CSS3……</dd>
+	
+		</dl>
+	</section>
+
+</aside>
+
+	</div>
+</div>
+
+
+<script src="highlight.pack.js"></script>
+<script>
+hljs.configure({
+	tabReplace: '    '
+});
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+</body>
+</html>
+
+
+
+
+

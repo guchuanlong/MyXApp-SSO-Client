@@ -1,0 +1,89 @@
+apply plugin: 'war'
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'maven-publish'
+
+ext {
+	appName = "myxapp-sso-client"
+	moduleVersion = "1.0-SNAPSHOT"
+	builtBy = "gradle 2.2"
+	publishUserName = "myxappdev"
+	publishUserPassword = "myxappdev"
+	publishURL = "http://localhost:8081/nexus/content/repositories/snapshots/"        
+	mavenPublicURL = "http://localhost:8081/nexus/content/groups/public/"
+}
+sourceCompatibility = 1.7
+configurations.all { resolutionStrategy.cacheChangingModulesFor 0, 'seconds' }
+
+group="com.myunihome.myxapp.sso.client"
+
+repositories {
+	//mavenLocal()
+	//mavenCentral()	
+	maven { url mavenPublicURL }
+}
+
+dependencies {
+	compile "org.jasig.cas.client:cas-client-core:3.3.3"
+	compile "javax.servlet:javax.servlet-api:3.1.0"
+	
+	compile 'com.myunihome.myxapp:myxapp-sdk:1.0-SNAPSHOT'
+}
+
+eclipse {
+	wtp {
+		facet {
+			facet name: 'java', version: '1.7'
+			facet name: 'jst.web', version: '3.0'
+			facet name: 'wst.jsdt.web', version: '1.0'
+		}
+	}
+}
+
+jar{
+	baseName appName
+	version moduleVersion
+	include "com/myunihome/myxapp/sso/client/filter/**"
+	destinationDir file("$buildDir/libs/")
+	manifest {
+		attributes 'packageName': baseName, 'Built-By': builtBy, 'create-date': new Date().format('yyyy-MM-dd HH:mm:ss')
+	}
+}
+
+publishing {
+    publications {
+        publishing.publications.create("${appName}", MavenPublication) {
+            groupId group
+            artifactId appName
+            version moduleVersion
+            artifact  jar
+            pom.withXml {
+				asNode().children().last() + {
+					delegate.dependencies {
+						delegate.dependency {
+							delegate.groupId("org.jasig.cas.client")
+							delegate.artifactId("cas-client-core")
+							delegate.version("3.3.3")
+						}
+					}
+				}
+
+            }
+        }
+    }
+    repositories {
+        maven {
+            url  publishURL
+            credentials {
+                username = publishUserName
+                password = publishUserPassword
+            }
+        }
+    }
+}
+
+
+war{
+	baseName  "mysso-client"
+}

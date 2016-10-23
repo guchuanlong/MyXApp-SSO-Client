@@ -1,0 +1,181 @@
+@charset "utf-8";
+
+
+@charset "gb2312";
+/*@charset "gb2312";*/
+
+
+/*响应式导航*/
+/*导航*/
+.gh {
+    display: block;
+    height: 60px;
+    outline: medium none;
+    width: 60px;
+	position:absolute; right:0; top:0; cursor:pointer; display:none;
+	
+	/*css3*/
+	-webkit-transform:translateZ(0) rotate(0deg);
+-ms-transform:translateZ(0) rotate(0deg);
+transform:translateZ(0) rotate(0deg);
+-webkit-transition:-webkit-transform 0.4s cubic-bezier(0.4, 0.01, 0.165, 0.99);
+transition:transform 0.4s cubic-bezier(0.4, 0.01, 0.165, 0.99);
+outline:none;
+-webkit-tap-highlight-color:rgba(255, 255, 255, 0);
+-webkit-tap-highlight-color:transparent;
+}
+
+.gh svg {
+    font-size: 18px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    
+	/*css3*/
+	-webkit-transform:translateZ(0) rotate(0deg);
+-ms-transform:translateZ(0) rotate(0deg);
+transform:translateZ(0) rotate(0deg);
+fill:#333;
+-webkit-transition:-webkit-transform 0.25s cubic-bezier(0.4, 0.01, 0.165, 0.99);
+transition:transform 0.25s cubic-bezier(0.4, 0.01, 0.165, 0.99);
+}
+
+.gh rect {
+    left: 0;
+    top: 0;
+   
+   /*css3*/
+   -webkit-transition:-webkit-transform 0.2s 0.2s;
+transition:transform 0.2s 0.2s;
+}
+.gh svg.top .rect {
+
+	/*css3*/
+    -webkit-transform:translate3d(0, -8px, 0);
+-ms-transform:translate3d(0, -8px, 0);
+transform:translate3d(0, -8px, 0);
+}
+.gh svg.bottom rect {
+	/*css3*/
+    -webkit-transform:translate3d(0, 8px, 0);
+-ms-transform:translate3d(0, 8px, 0);
+transform:translate3d(0, 8px, 0);
+}
+/***/
+.selected .gh {
+    -webkit-transform:translateZ(0) rotate(90deg);
+-ms-transform:translateZ(0) rotate(90deg);
+transform:translateZ(0) rotate(90deg);
+-webkit-transition:-webkit-transform 0.4s cubic-bezier(0.4, 0.01, 0.165, 0.99);
+transition:transform 0.4s cubic-bezier(0.4, 0.01, 0.165, 0.99);
+}
+
+
+.selected .gh svg {
+    
+	-webkit-transition:-webkit-transform 0.25s 0.2s cubic-bezier(0.4, 0.01, 0.165, 0.99);
+transition:transform 0.25s 0.2s cubic-bezier(0.4, 0.01, 0.165, 0.99);
+-webkit-transform:translateZ(0) rotate(45deg);
+-ms-transform:translateZ(0) rotate(45deg);
+transform:translateZ(0) rotate(45deg)
+
+}
+.selected .gh svg.bottom {
+    -webkit-transform:translateZ(0) rotate(-45deg);
+-ms-transform:translateZ(0) rotate(-45deg);
+transform:translateZ(0) rotate(-45deg);
+}
+.selected .gh svg.top {
+    -webkit-transform:translateZ(0) rotate(45deg);
+-ms-transform:translateZ(0) rotate(45deg);
+transform:translateZ(0) rotate(45deg);
+}
+.selected .gh. rect {
+   -webkit-transition:-webkit-transform 0.2s;
+transition:transform 0.2s;
+}
+.selected .gh svg.top rect, 
+.selected .gh svg.bottom rect {
+    -webkit-transform:translate3d(0, 0, 0);
+-ms-transform:translate3d(0, 0, 0);
+transform:translate3d(0, 0, 0);
+}
+
+@media only screen and (max-width:940px) {
+	.gh{
+		display:block;
+	}
+}
+
+@media only screen and (max-width:800px) {
+	.timeline{
+		background-position:20px 0;
+	}
+	.timeline .event{
+		padding-right:20px;
+	}
+	.timeline .thumb{
+		display:none;
+	}
+	.timeline .inner{
+		margin-left:50px;
+	}
+	.timeline label{
+		left:13px; width:10px; height:10px;
+	}
+}
+
+
+
+@media only screen and (max-width:640px) {
+
+}
+
+
+
+@media only screen and (max-width:480px) {
+
+}
+
+
+
+.show-phone {
+	display:none!important
+}
+.show-pad {
+	display:none!important
+}
+.hide-pc {
+	display:none!important
+}
+.show-pc {
+	display:inherit!important
+}
+@media(min-width:768px) and (max-width:979px) {
+.hide-pc {
+display:inherit!important
+}
+.show-pc {
+display:none!important
+}
+.show-pad {
+display:inherit!important
+}
+.hide-pad {
+display:none!important
+}
+}
+@media(max-width:767px) {
+.hide-pc {
+display:inherit!important
+}
+.show-pc {
+display:none!important
+}
+.show-phone {
+display:inherit!important
+}
+.show-phone {
+display:none!important
+}
+}

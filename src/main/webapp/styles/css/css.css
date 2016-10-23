@@ -1,0 +1,121 @@
+/*初始化*/
+*{webkit-box-sizing: border-box;  -moz-box-sizing: border-box;  box-sizing: border-box; border:0; padding:0;font-family:"微软雅黑"; }
+body{margin:0; font-family:Arial,'microsoft yahei',sans-serif; color:#333; font-family:Arial, "微软雅黑";font-size:14px;  }
+li{ list-style:none;}
+h1,h2,h3,p,dl,dt,dd,form,input,select {margin:0;padding:0;}
+th,td{padding:0;}
+ul,ol{margin:0;padding:0;list-style-type:none;}
+img {border:none;}
+a {text-decoration:none;color:black;}
+var,em {font-style:normal;}
+table{border-collapse:collapse;}
+.left{ float:left}
+.right{ float:right;}
+input{outline:none; line-height:28px;}
+button{outline:none; cursor:pointer;}
+.btn{ background:#35c09d; height:35px;font-size:16px; text-align:center; line-height:35px; color:#fff;}
+.btnh{ background:#d9d9db; height:35px;font-size:16px; text-align:center; line-height:35px; color:#625f5f;}
+.btnh:hover{ background:#dddde7;}
+.btny{width: 130px;float: left;height: 35px;background: #e68948;color: #fff;font-size: 16px;}
+button.btn:hover{ background:#33d0a9;}
+textarea{outline:none; }
+
+
+/****/
+
+
+
+/**首页**/
+.banner{ width:100%; float:left;position:relative; min-width:1190px;}
+.flexslider{position:relative;height:582px;overflow:hidden;background:url(../images/loading.gif) 50% no-repeat;}
+.slides{position:relative;z-index:1;}
+.slides li{height:582px; text-align:center;}
+.slides li P{ width:100%; float:left; text-align:center; font-size:120px; color:#fff; margin-top:280px;}
+.flex-control-nav{position:absolute;bottom:50px;z-index:2;width:100%;text-align:center;}
+.flex-control-nav li{display:inline-block;width:14px;height:14px;margin:0 5px;*display:inline;zoom:1;}
+.flex-control-nav a{display:inline-block;width:14px;height:14px;line-height:40px;overflow:hidden;background:url(../images/dot.png) right 0 no-repeat;cursor:pointer;}
+.flex-control-nav .flex-active{background-position:0 0;}
+
+.flex-direction-nav{position:absolute;z-index:3;width:100%;top:45%;}
+.flex-direction-nav li a{display:block;width:50px;height:50px;overflow:hidden;cursor:pointer;position:absolute;}
+.flex-direction-nav li a.flex-prev{left:5%;background:url(../images/banner_left.png) center center no-repeat; display:block;}
+.flex-direction-nav li a.flex-prev:hover{background:url(../images/banner_lefta.png) center center no-repeat; }
+.flex-direction-nav li a.flex-next{right:5%;background:url(../images/banner_right.png) center center no-repeat; display:block;}
+.flex-direction-nav li a.flex-next:hover{background:url(../images/banner_righta.png) center center no-repeat; }
+
+
+
+
+
+@media screen and (max-width:10000px){
+/**登陆**/
+.login{ width:100%; float:left; background:url(../images/login_bga.png) no-repeat; height:100%; position:fixed;   background-size:100% 100%;}
+.login_nr{ width:300px; height:350px; position:absolute; right:150px; top:200px;}
+.login_title{ width:100%; float:left; height:30px; font-size:20px; color:#0076a3; line-height:30px;}
+.login_tr{ width:100%; float:left;}
+.login_tr ul{ width:100%; float:left;}
+.login_tr ul li{ width:100%; float:left; position:relative; margin-top:20px; color:#555;}
+.login_tr ul li input{ width:300px; float:left; height:45px; border-radius:5px; border:1px solid #85bacd; padding:5px 5px 5px 40px; font-size:16px; color:#acacac;}
+.login_tr ul li input:hover{border:1px solid #2bb693;}
+.login_tr ul li .cbox{ width:auto; height:auto; line-height:none; margin-top: 3px;margin-right:5px;}
+.login_tr ul li i{ width:43px; height:43px; position:absolute; border-radius:5px 0 0 5px; left:1px; top:1px; font-size:20px; line-height:43px; text-align:center; color:#bbb;}
+.login_tr ul li button{ width:300px; float:left; height:45px; border-radius:5px; background:#35c09d; font-size:20px; color:#fff; text-align:center; line-height:45px; margin-top:0px;}
+.login_tr ul li button:hover{background:#00b38a;}
+.login_tp{ width:501px; float:left; position:absolute; left:150px; top:125px;}
+.login_tp img{ width:501px;}
+.login_nra{ width:1190px; margin:0 auto; position:relative}
+.login_tr ul li .login_btn{padding:0; width:300px; float:left; height:45px; border-radius:5px; background:#35c09d; font-size:20px; color:#fff; text-align:center; line-height:45px; margin-top:0px;}
+.login_tr ul li .login_btn:hover{background:#00b38a;}
+}
+@media screen and (max-width:800px){
+.login{ width:100%; float:left; background:url(../images/login_bga.png) no-repeat center 0 #e8f5fa; position: inherit; background-size:100% 100%; height:100%; text-align:center;}
+.login_nr{ width:300px; margin:0 auto; position:relative; right:inherit; top:inherit;}
+.login_title{ width:100%; float:left; height:30px; font-size:20px; color:#0076a3; line-height:30px;}
+.login_tr{ width:100%; float:left;}
+.login_tr ul{ width:100%; float:left;}
+.login_tr ul li{ width:100%; float:left; position:relative; margin-top:20px; color:#555; text-align:left;}
+.login_tr ul li input{ width:300px; float:left; height:45px; border-radius:5px; border:1px solid #85bacd; padding:5px 5px 5px 40px; font-size:16px; color:#acacac;}
+.login_tr ul li input:hover{border:1px solid #2bb693;}
+.login_tr ul li .cbox{ width:auto; height:auto; line-height:none; margin-right:5px;}
+.login_tr ul li i{ width:43px; height:43px; position:absolute; border-radius:5px 0 0 5px; left:1px; top:1px; font-size:20px; line-height:43px; text-align:center; color:#bbb;}
+.login_tr ul li button{ width:300px; float:left; height:45px; border-radius:5px; background:#35c09d; font-size:20px; color:#fff; text-align:center; line-height:45px; margin-top:0px;}
+.login_tr ul li button:hover{background:#00b38a;}
+.login_tp{ width:100%; float:left; text-align:center; margin-top:60px; position:relative; left:inherit; top:inherit;}
+.login_tp img{ width:300px;}
+.login_nra{ width:100%; float:left;}
+}
+
+
+
+
+
+
+
+
+/**头部底部**/
+.header{ width:100%; min-width:1190px; float:left; background:#f8f7f7; border-bottom:3px solid #ffcb05;
+ height:83px; position:fixed; top:0; left:0; z-index:10;}
+.head{ width:1190px; margin:0 auto;}
+.logo{ width:190px; float:left; margin-top:15px; border-right:1px solid #ddd;}
+
+
+
+
+
+
+
+
+
+
+.d_tup{ width:100%; float:left; text-align:center; line-height:0;}
+.d_tup img{ width:1360px;}
+.naver_tr{ width:100%; float:left; text-align:right;}
+.navera{ width:660px; float:right;}
+.naver_tr ul li{ float:right; margin-top:30px; font-size:16px; padding-left:40px;}
+.naver_tr ul li a{ color:#555;}
+.naver_tr ul li a:hover{ color:#35c09d;}
+.yaxa{ width:140px; float:left; color:#35c09d; font-size:16px; margin-left:15px; margin-top:23px; cursor:pointer; border-radius:15px; padding:5px 0px;}
+.yaxa p img{ float:left; margin-left:15px;}
+.yaxa p span{ float:left; margin-left:10px; margin-right:10px; margin-top:6px;}
+.yaxa p span a{color:#35c09d;}
+.yaxa p span a:hover{ color:#33d0a9;}
